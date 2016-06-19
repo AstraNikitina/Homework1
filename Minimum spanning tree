@@ -1,0 +1,36 @@
+#include <algorithm>
+#include <iostream>
+#include <utility>
+#include <vector>
+
+
+int main() {
+long int nn, mm;
+    std::cin >> nn >> mm;
+    std::vector<std::pair<long int, std::pair<long int, long int>>> sides;
+    for (int i = 0; i < mm; ++i) {
+        int aa, bb, cc;
+        std::cin >> bb >> cc >> aa;
+        sides.push_back(std::make_pair(aa, std::make_pair(bb, cc)));
+    }
+    std::vector<long int> trees;
+    for (int i = 0; i < nn; ++i) {
+        trees.push_back(i);
+    }
+    sort(sides.begin(), sides.end());
+    long long int len = 0;
+    for (int ii = 0; ii < mm; ++ii) {
+        if (trees[sides[ii].second.first - 1] != trees[sides[ii].second.second - 1]) {
+            len += sides[ii].first;
+            long int aa = trees[sides[ii].second.second - 1];
+            for (int j = 0; j < nn; ++j) {
+                if (trees[j] == aa) {
+                    trees[j] = trees[sides[ii].second.first - 1];
+                }
+            }
+        }
+    }
+    std::cout << len;
+    return 0;
+}
+
