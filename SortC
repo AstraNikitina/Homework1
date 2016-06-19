@@ -1,0 +1,44 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+int main() {
+    int n, m;
+    vector<long long int> first;
+    vector<long long int> second;
+    vector<long long int> third;
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        long long int help;
+        cin >> help;
+        first.push_back(help);
+    }
+    cin >> m;
+    for (int i = 0; i < m; i++) {
+        long long int help;
+        cin >> help;
+        second.push_back(help);
+    }
+    int endfirst = 0;
+    int endsecond = 0;
+    while ((endfirst < n) && (endsecond < m)) {
+        if (first[endfirst] < second[endsecond]) {
+            third.push_back(first[endfirst]);
+            endfirst++;
+        } else  {
+            third.push_back(second[endsecond]);
+            endsecond++;
+        }
+    }
+    while (endfirst < n) {
+        third.push_back(first[endfirst]);
+        endfirst++;
+    }
+    while (endsecond < m) {
+        third.push_back(second[endsecond]);
+        endsecond++;
+    }
+    for (auto i : third) {
+        cout << i << ' ';
+    }
+    return 0;
+}
