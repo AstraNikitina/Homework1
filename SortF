@@ -1,0 +1,57 @@
+#include <algorithm>
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <utility>
+
+template<typename iterat>
+std::pair<iterat, int> partition(iterat first, iterat last) {
+    iterat second = first;
+    iterat repeat = last;
+    int lol = *(first + rand() % (last - first));
+    while (second != repeat) {
+        if (*second < lol) {
+            std::swap(*first, *second);
+            ++first;
+        } else if (*second == lol) {
+            --repeat;
+            std::swap(*second, *repeat);
+            --second;
+        }
+        ++second;
+    }
+    int count = last - repeat;
+    second = first;
+    while (repeat != last) {
+        std::swap(*repeat, *first);
+        ++repeat;
+        ++first;
+    }
+    return std::make_pair(second, count);
+}
+
+template<typename iterat>
+void Qsort(iterat first, iterat last) {
+    if ((last - first) > 1) {
+        std::pair<iterat, int> sec;
+        sec = partition(first, last);
+        Qsort(first, sec.first);
+        Qsort(sec.second + sec.first, last);
+    }
+}
+
+int main() {
+    int n;
+    std::cin >> n;
+    std::vector<int> trash;
+    for (int i = 0; i < n; ++i) {
+        int aa;
+        std::cin >> aa;
+        trash.push_back(aa);
+    }
+    Qsort(trash.begin(), trash.end());
+    for (int i = 0; i < n; ++i) {
+        std::cout << trash[i] << ' ';
+    }
+    return 0;
+}
