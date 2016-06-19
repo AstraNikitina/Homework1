@@ -1,0 +1,56 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+vector<long long int> glue(vector<long long int> first, vector<long long int> second) {
+    vector<long long int> third;
+    size_t endfirst = 0;
+    size_t endsecond = 0;
+    while ((endfirst < first.size()) && (endsecond < second.size())) {
+        if (first[endfirst] < second[endsecond]) {
+            third.push_back(first[endfirst]);
+            endfirst++;
+        } else  {
+            third.push_back(second[endsecond]);
+            endsecond++;
+        }
+    }
+    while (endfirst < first.size()) {
+        third.push_back(first[endfirst]);
+        endfirst++;
+    }
+    while (endsecond < second.size()) {
+        third.push_back(second[endsecond]);
+        endsecond++;
+    }
+    return third;
+}
+vector<long long int> sorting(vector<long long int> need_sort) {
+    vector<long long int> first;
+    vector<long long int> second;
+    size_t helper = need_sort.size() / 2;
+    for (size_t i = 0; i < helper; i++) {
+        first.push_back(need_sort[i]);
+    }
+    for (size_t i = helper; i < need_sort.size(); i++) {
+        second.push_back(need_sort[i]);
+    }
+    if (first.size() > 1) first = sorting(first);
+    if (second.size() > 1) second = sorting(second);
+    need_sort = glue(first, second);
+    return need_sort;
+}
+int main() {
+    int n;
+    vector <long long int> need_sort;
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        long long int help;
+        cin >> help;
+        need_sort.push_back(help);
+    }
+    need_sort = sorting(need_sort);
+    for (auto i : need_sort) {
+        cout << i << ' ';
+    }
+    return 0;
+}
