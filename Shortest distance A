@@ -1,0 +1,32 @@
+#include <iostream>
+int main() {
+    int n;
+    std::cin >> n;
+    int cost[102];
+    int hell[102];
+    for (int i = 1; i <= n; ++i) {
+        std::cin >> cost[i];
+        hell[i] = 10100;
+    }
+    hell[1] = 0;
+    int m;
+    std::cin >> m;
+    int eroina[1002][3];
+    for (int i = 0; i < m; ++i) {
+        std::cin >> eroina[i][0] >> eroina[i][1];
+    }
+    for (int i = 1; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            hell[eroina[j][1]] = std::min(hell[eroina[j][1]],
+                hell[eroina[j][0]] + cost[eroina[j][0]]);
+            hell[eroina[j][0]] = std::min(hell[eroina[j][0]],
+                hell[eroina[j][1]] + cost[eroina[j][1]]);
+        }
+    }
+    if (hell[n] == 10100) {
+        std::cout << -1;
+    } else {
+        std::cout << hell[n];
+    }
+    return 0;
+}
