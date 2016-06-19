@@ -1,0 +1,29 @@
+#include<iostream>
+using namespace std;
+int main() {
+    int t;
+    long long int a[1000001];
+    cin >> t;
+    for (int i = 0; i < t; i++) {
+        cin >> a[i];
+    }
+    for (int n = t; n > 0; n--) {
+        long long int max;
+        max = a[0];
+        int pos = 0;
+        for (int i = 0; i < n; i++) {
+            if (max < a[i]) {
+            max = a[i];
+            pos = i;
+            }
+        }
+        long long int k = 0;
+        k = a[n-1];
+        a[n-1] = max;
+        a[pos] = k;
+    }
+    for (int i = 0; i < t; i++) {
+        cout << a[i] << ' ';
+    }
+    return 0;
+}
