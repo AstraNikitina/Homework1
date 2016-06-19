@@ -1,0 +1,36 @@
+#include <iostream>
+int main() {
+    int n, m, k, s, f;
+    std::cin >> n >> m >> k >> s >> f;
+    int eroina[100100][4];
+    for (int i = 0; i < m; ++i) {
+        std::cin >> eroina[i][0] >> eroina[i][1] >> eroina[i][2];
+    }
+    long int distance[110];
+    long int dist[110];
+    for (int i = 1; i <= n; ++i) {
+        distance[i] = 3000000;
+        dist[i] = 3000000;
+    }
+    distance[s] = 0;
+    dist[s] = 0;
+    for (int i = 1; i <= k; ++i) {
+        for (int j = 0; j < m; ++j) {
+            if (distance[eroina[j][0]] != 3000000) {
+                dist[eroina[j][1]] = std::min(dist[eroina[j][1]],
+                distance[eroina[j][0]] + eroina[j][2]);
+            }
+        }
+        for (int j = 1; j <= n; ++j) {
+            long int help = distance[j];
+            distance[j] = dist[j];
+            dist[j] = help;
+        }
+    }
+    if (distance[f] > 2000000) {
+        std::cout << -1;
+    } else {
+        std::cout << distance[f];
+    }
+    return 0;
+}
